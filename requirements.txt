@@ -1,0 +1,7 @@
+faiss-cpu==1.11.0
+ipykernel==7.2.0
+numpy==2.2.6
+openai==2.38.0
+pydantic==2.13.4
+python-dotenv==1.2.2
+qdrant-client==1.18.0
