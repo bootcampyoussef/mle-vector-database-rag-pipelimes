@@ -35,9 +35,8 @@ flowchart TD
   approximate [FAISS](https://faiss.ai/) indexes, map retrieved vector IDs back
   to metadata, and measure the accuracy-speed trade-off.
 - [04 - RAG Pipeline And Grounded Generation](04-rag-pipeline-and-grounded-generation.ipynb):
-  Store embeddings with [Qdrant local mode](https://qdrant.tech/documentation/quickstart/),
-  connect retrieval to a guarded citation-aware provider prompt, and generate
-  a grounded answer.
+  Reuse a [FAISS](https://faiss.ai/) index, connect retrieval to a guarded
+  citation-aware provider prompt, and generate a grounded answer.
 - [05 - Retrieval Evaluation Mini-Project](05-retrieval-evaluation-mini-project.ipynb):
   Evaluate retrievers with
   [recall@k and mean reciprocal rank (MRR)](https://www.pinecone.io/learn/offline-evaluation/)
