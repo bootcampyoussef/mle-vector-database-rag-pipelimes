@@ -4,7 +4,7 @@ This repository is a notebook-based learning path for building
 [retrieval-augmented generation (RAG)](https://arxiv.org/abs/2005.11401)
 systems from their retrieval foundation upward. It makes document splitting,
 vector similarity, [FAISS](https://github.com/facebookresearch/faiss) indexing,
-grounded generation, and retrieval evaluation inspectable before participants
+grounded generation, and retrieval evaluation inspectable before you
 move to managed vector-database deployments or orchestration frameworks.
 
 The notebooks use a small shared course-handbook corpus and real FAISS indexes.
@@ -14,55 +14,59 @@ The generation notebook can call [Groq](https://console.groq.com/docs) or
 API key it uses an explicit deterministic dry-run response so the full path can
 still be executed locally.
 
+## Learning Objectives
+
+By the end of this repository, you should be able to:
+
+- Implement a document chunking strategy and explain its effect on retrieval
+  quality and grounding evidence.
+- Build a vector index with FAISS and perform approximate nearest neighbor
+  search.
+- Assemble a complete RAG pipeline that embeds documents, stores and retrieves
+  vectors, and generates a cited answer from retrieved evidence.
+- Evaluate retrieval quality with recall@k and MRR, then diagnose failures.
+
 ## Learning Path
 
 ```mermaid
-flowchart TD
-    A[01 - Chunking For Retrieval] --> B[02 - Embeddings And Similarity Search]
-    B --> C[03 - FAISS And ANN Indexes]
-    C --> D[04 - RAG Pipeline And Grounded Generation]
-    D --> E[05 - Retrieval Evaluation Mini-Project]
+flowchart LR
+    NB1[01 - Chunking<br>for Retrieval]
+    NB1 --> NB2[02 - Embeddings and<br>Similarity Search]
+    NB2 --> NB3[03 - FAISS and<br>ANN Indexes]
+    NB3 --> NB4[04 - RAG Pipeline and<br>Grounded Generation]
+    NB4 --> NB5[05 - Retrieval Evaluation<br>Mini-Project]
 ```
 
-- [01 - Chunking For Retrieval](01-chunking-for-retrieval.ipynb): Split source
-  documents into retrieval units, compare overlap choices, and reason about
-  evidence lost at chunk boundaries.
-- [02 - Embeddings And Similarity Search](02-embeddings-and-similarity-search.ipynb):
-  Build transparent normalized embeddings with
-  [NumPy](https://numpy.org/doc/stable/), compute cosine similarity, and inspect
-  top-k retrieval results.
-- [03 - FAISS And ANN Indexes](03-faiss-and-ann-indexes.ipynb): Build exact and
-  approximate [FAISS](https://faiss.ai/) indexes, map retrieved vector IDs back
-  to metadata, and measure the accuracy-speed trade-off.
-- [04 - RAG Pipeline And Grounded Generation](04-rag-pipeline-and-grounded-generation.ipynb):
-  Reuse a [FAISS](https://faiss.ai/) index, connect retrieval to a guarded
-  citation-aware provider prompt, and generate a grounded answer.
-- [05 - Retrieval Evaluation Mini-Project](05-retrieval-evaluation-mini-project.ipynb):
-  Evaluate retrievers with
-  [recall@k and mean reciprocal rank (MRR)](https://www.pinecone.io/learn/offline-evaluation/)
-  and write an evidence-based improvement decision.
+| File | Description |
+|------|-------------|
+| [01 - Chunking For Retrieval](01-chunking-for-retrieval.ipynb) | Split source documents into retrieval units, compare overlap choices, and reason about evidence lost at chunk boundaries. |
+| [02 - Embeddings and Similarity Search](02-embeddings-and-similarity-search.ipynb) | Build transparent normalized embeddings with [NumPy](https://numpy.org/doc/stable/), compute cosine similarity, and inspect top-k retrieval results. |
+| [03 - FAISS and ANN Indexes](03-faiss-and-ann-indexes.ipynb) | Build exact and approximate [FAISS](https://faiss.ai/) indexes, map retrieved vector IDs back to metadata, and measure the accuracy-speed trade-off. |
+| [04 - RAG Pipeline and Grounded Generation](04-rag-pipeline-and-grounded-generation.ipynb) | Reuse a [FAISS](https://faiss.ai/) index, connect retrieval to a guarded citation-aware provider prompt, and generate a grounded answer. |
+| [05 - Retrieval Evaluation Mini-Project](05-retrieval-evaluation-mini-project.ipynb) | Evaluate retrievers with [recall@k and mean reciprocal rank (MRR)](https://www.pinecone.io/learn/offline-evaluation/) and write an evidence-based improvement decision. |
 
 ## Repository Map
 
 ```text
 mle-vector-databases-rag-pipelines/
-|-- assets/                              # sourced raster visuals
-|-- data/
-|   `-- course_handbook.json             # shared retrieval corpus
-|-- .env.example                         # optional generation provider config
-|-- requirements.txt                     # runtime dependencies
-|-- 01-chunking-for-retrieval.ipynb
-|-- 02-embeddings-and-similarity-search.ipynb
-|-- 03-faiss-and-ann-indexes.ipynb
-|-- 04-rag-pipeline-and-grounded-generation.ipynb
-`-- 05-retrieval-evaluation-mini-project.ipynb
+├── assets/                    # Local visual aids used in notebooks
+├── data/
+│   └── course_handbook.json   # Shared retrieval corpus
+├── .env.example               # Provider configuration template
+├── 01-chunking-for-retrieval.ipynb
+├── 02-embeddings-and-similarity-search.ipynb
+├── 03-faiss-and-ann-indexes.ipynb
+├── 04-rag-pipeline-and-grounded-generation.ipynb
+├── 05-retrieval-evaluation-mini-project.ipynb
+├── README.md
+└── requirements.txt           # Runtime dependencies
 ```
 
 ## Environment
 
 Please make sure you **use this repository as a template** and set up a new virtual environment. You can use the following commands:
 
-### macOS
+### **`macOS`** / **`Linux`**
 
 ```bash
 pyenv local 3.11.3
@@ -70,21 +74,11 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-cp .env.example .env
 ```
 
-### Windows PowerShell
+### **`Windows`**
 
-```powershell
-pyenv local 3.11.3
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-Copy-Item .env.example .env
-```
-
-### Windows Git Bash
+For `Git Bash` CLI:
 
 ```bash
 pyenv local 3.11.3
@@ -92,7 +86,30 @@ python -m venv .venv
 source .venv/Scripts/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+```
+
+For `PowerShell` CLI:
+
+```powershell
+pyenv local 3.11.3
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+Then copy the default local environment file:
+
+**`macOS`** / **`Linux`** / **`Git Bash`**
+
+```bash
 cp .env.example .env
+```
+
+**`PowerShell`**
+
+```powershell
+Copy-Item .env.example .env
 ```
 
 ## Generation Provider Setup
@@ -119,7 +136,7 @@ Groq documents its OpenAI-compatible endpoint in
 Mistral provides generation guidance in its
 [text generation documentation](https://docs.mistral.ai/capabilities/completion/).
 
-## API And Data Notes
+## API and Data Notes
 
 - Never commit `.env`, provider keys, or personal account details.
 - Provider model names, free tiers, billing rules, and rate limits may change;
@@ -127,20 +144,6 @@ Mistral provides generation guidance in its
 - `data/course_handbook.json` is a small fictional policy corpus shared by the
   notebooks. It exists to make retrieval mistakes inspectable and is not an
   external factual source.
-- Notebook visuals are sourced raster images kept under `assets/`; every image
-  is introduced and credited beside its use in a notebook.
-
-## Learning Objectives
-
-By the end of this repository, you should be able to:
-
-- Implement a document chunking strategy and explain its effect on retrieval
-  quality and grounding evidence.
-- Build a vector index with FAISS and perform approximate nearest neighbor
-  search.
-- Assemble a complete RAG pipeline that embeds documents, stores and retrieves
-  vectors, and generates a cited answer from retrieved evidence.
-- Evaluate retrieval quality with recall@k and MRR, then diagnose failures.
 
 ## Professional Tooling Context
 
