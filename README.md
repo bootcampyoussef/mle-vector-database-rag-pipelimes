@@ -27,7 +27,7 @@ By the end of this repository, you should be able to:
 
 | File / Folder | Description |
 |---|---|
-| [**assets**](assets/) | Visual aids referenced in the notebooks. |
+| [**assets**](assets/) | Visual aids referenced in the repository. |
 | [**data**](data/) | Course handbook corpus shared across notebooks. |
 | [**.env.example**](.env.example) | Provider configuration template. |
 | [**pyproject.toml**](pyproject.toml) | Project configuration and dependencies. |
@@ -37,7 +37,7 @@ By the end of this repository, you should be able to:
 
 > [!NOTE]
 > Throughout these steps, text in angle brackets like `<repo-name>` is a
-  **placeholder**. Replace it including the `< >` brackets with your own
+  **placeholder**. Replace it, including the `< >` brackets, with your own
   value. For example, `cd <repo-name>` becomes `cd mle-vector-databases-rag-pipelines`.
 
 ### 1. Create the Repository from the Template
@@ -112,7 +112,7 @@ Notebooks 01-03 and the retrieval evaluation in notebook 05 run without an API k
 
 ---
 
-### 6. Open the Notebooks
+### 6. Open the Repository in VS Code
 
 > [!NOTE]
 > Make sure you open VS Code from the project root so it automatically detects the environment created by `uv sync`.
