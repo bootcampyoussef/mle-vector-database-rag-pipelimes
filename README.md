@@ -11,7 +11,7 @@ By the end of this repository, you should be able to:
 - Implement a document chunking strategy and explain its effect on retrieval quality and grounding evidence.
 - Build a vector index with FAISS and perform approximate nearest neighbor search.
 - Assemble a complete RAG pipeline that embeds documents, stores and retrieves vectors, and generates a cited answer from retrieved evidence.
-- Evaluate retrieval quality with recall@k and MRR, then diagnose failures.
+- Evaluate retrieval quality with HitRate@k and MRR, then diagnose failures.
 
 ## Learning Path
 
@@ -21,7 +21,7 @@ By the end of this repository, you should be able to:
 | [**02 - Embeddings and Similarity Search**](02-embeddings-and-similarity-search.ipynb) | Build transparent normalized embeddings with NumPy, compute cosine similarity, and inspect top-k retrieval results. |
 | [**03 - FAISS and ANN Indexes**](03-faiss-and-ann-indexes.ipynb) | Build exact and approximate FAISS indexes, map retrieved vector IDs back to metadata, and measure the accuracy-speed trade-off. |
 | [**04 - RAG Pipeline and Grounded Generation**](04-rag-pipeline-and-grounded-generation.ipynb) | Reuse a FAISS index, connect retrieval to a guarded citation-aware provider prompt, and generate a grounded answer. |
-| [**05 - Retrieval Evaluation**](05-retrieval-evaluation.ipynb) | Evaluate retrievers with recall@k and mean reciprocal rank (MRR) and write an evidence-based improvement decision. |
+| [**05 - Retrieval Evaluation**](05-retrieval-evaluation.ipynb) | Evaluate retrievers with HitRate@k and mean reciprocal rank (MRR) and write an evidence-based improvement decision. |
 
 ### Additional Folders and Files
 
