@@ -1,8 +1,8 @@
 # Vector Databases, Similarity Search and RAG Pipelines
 
-A notebook-based learning path for building retrieval-augmented generation (RAG) systems from their retrieval foundation upward. The notebooks make document splitting, vector similarity, FAISS indexing, grounded generation, and retrieval evaluation inspectable before you move to managed vector-database deployments or orchestration frameworks.
+A five-notebook learning path for building retrieval-augmented generation (RAG) systems from their retrieval foundation upward. Notebooks 01-03 expose chunking, vector similarity, and FAISS indexing. Notebooks 04-05 apply those decisions with [LangChain](https://docs.langchain.com/oss/python/langchain/overview), trained Sentence Transformers embeddings, and Qdrant local mode, then evaluate the same retrieval stack.
 
-The notebooks use a small shared course-handbook corpus and real FAISS indexes. The generation notebook can call [Groq](https://console.groq.com/docs) or [Mistral](https://docs.mistral.ai/) through the OpenAI Python library; without an API key it uses an explicit deterministic dry-run response so the full path can still be executed locally.
+The notebooks share a small course-handbook corpus. Notebook 04 can call [Groq](https://console.groq.com/docs) or [Mistral](https://docs.mistral.ai/) through LangChain's OpenAI-compatible integration. Without a key, it returns a clearly labeled extractive example, not an LLM answer; the trained embeddings and vector database still run locally.
 
 ## Learning Objectives
 
@@ -20,8 +20,8 @@ By the end of this repository, you should be able to:
 | [**01 - Chunking for Retrieval**](01-chunking-for-retrieval.ipynb) | Split source documents into retrieval units, compare overlap choices, and reason about evidence lost at chunk boundaries. |
 | [**02 - Embeddings and Similarity Search**](02-embeddings-and-similarity-search.ipynb) | Build transparent normalized embeddings with NumPy, compute cosine similarity, and inspect top-k retrieval results. |
 | [**03 - FAISS and ANN Indexes**](03-faiss-and-ann-indexes.ipynb) | Build exact and approximate FAISS indexes, map retrieved vector IDs back to metadata, and measure the accuracy-speed trade-off. |
-| [**04 - RAG Pipeline and Grounded Generation**](04-rag-pipeline-and-grounded-generation.ipynb) | Reuse a FAISS index, connect retrieval to a guarded citation-aware provider prompt, and generate a grounded answer. |
-| [**05 - Retrieval Evaluation**](05-retrieval-evaluation.ipynb) | Evaluate retrievers with HitRate@k and mean reciprocal rank (MRR) and write an evidence-based improvement decision. |
+| [**04 - RAG Pipeline and Grounded Generation**](04-rag-pipeline-and-grounded-generation.ipynb) | Use LangChain, trained MiniLM embeddings, and Qdrant local mode to retrieve evidence, compose a provider prompt, and validate citations. |
+| [**05 - Retrieval Evaluation**](05-retrieval-evaluation.ipynb) | Compare chunking candidates with the same MiniLM/Qdrant stack, measure HitRate@k and MRR, and check separate validation questions. |
 
 ### Additional Folders and Files
 
@@ -90,11 +90,13 @@ cd <repo-name>
 uv sync
 ```
 
+Notebooks 04-05 download `sentence-transformers/all-MiniLM-L6-v2` on first use, then reuse the Hugging Face cache. This needs internet access initially but no API key or GPU. Qdrant runs in memory, so Docker and a database account are not required; restarting the kernel rebuilds its small collection.
+
 ---
 
-### 5. Set Up Environment Variables
+### 5. Set Up Environment Variables (Optional)
 
-Copy the example file and fill in your API keys:
+For real LLM generation in notebook 04, copy the example file and fill in your API key:
 
 ```bash
 cp .env.example .env
@@ -105,7 +107,7 @@ Open `.env` and set `LLM_PROVIDER` to `groq` or `mistral`, then add the matching
 - **Groq (primary):** Create a key at [console.groq.com/keys](https://console.groq.com/keys) and set `GROQ_API_KEY`.
 - **Mistral (alternative):** Create a key following the [Mistral API key documentation](https://docs.mistral.ai/admin/security-access/api-keys) and set `MISTRAL_API_KEY`.
 
-Notebooks 01-03 and the retrieval evaluation in notebook 05 run without an API key. Notebook 04 also executes without a key in dry-run mode, but a real generation call is necessary to observe how a model uses retrieved evidence.
+All five notebooks run without an API key. Notebook 04's extractive example copies the best evidence with a citation; a real generation call is necessary to evaluate how an LLM uses that evidence or abstains. Notebook 05 evaluates retrieval without calling an LLM.
 
 > [!CAUTION]
 > Never commit `.env` to version control. It contains your personal API keys.
@@ -131,9 +133,8 @@ Then open a notebook and select the Python environment created by `uv sync` as t
 
 ## Professional Tooling Context
 
-These notebooks keep the essential mechanics visible. Production systems often substitute or extend individual layers:
+The learning path moves from visible mechanics to one concrete integration, without adding a separate framework notebook:
 
-- Sentence Transformers and provider embedding APIs produce stronger dense text embeddings than the transparent local baseline.
-- FAISS is a vector similarity library; managed databases such as Qdrant or Chroma add persistence, metadata filtering, operational APIs, and scaling choices.
-- LangChain retrieval and LlamaIndex provide orchestration abstractions after the underlying retrieval decisions are understood.
-- Evaluation libraries such as Ragas and TruLens extend retrieval checks with groundedness and answer-quality evaluation.
+- **01-03:** NumPy hash vectors expose the retrieval mechanics; FAISS demonstrates exact and approximate search. These are not trained semantic embeddings.
+- **04-05:** [Sentence Transformers](https://sbert.net/) supplies learned embeddings, [Qdrant](https://qdrant.tech/documentation/) stores vectors and metadata locally, and LangChain connects the components. Local in-memory search does not demonstrate server deployment or ANN scalability.
+- **Later extensions:** LlamaIndex is an alternative RAG framework, not an additional requirement here. Evaluation libraries such as Ragas and TruLens extend retrieval checks with groundedness and answer-quality evaluation.
