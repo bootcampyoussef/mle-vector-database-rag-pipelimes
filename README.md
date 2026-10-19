@@ -1,6 +1,6 @@
 # Vector Databases, Similarity Search and RAG Pipelines
 
-A five-notebook learning path for building retrieval-augmented generation (RAG) systems from their retrieval foundation upward. Notebooks 01-03 expose chunking, vector similarity, and FAISS indexing. Notebooks 04-05 apply those decisions with [LangChain](https://docs.langchain.com/oss/python/langchain/overview), trained Sentence Transformers embeddings, and Qdrant local mode, then evaluate the same retrieval stack.
+A five-notebook learning path for building retrieval-augmented generation (RAG) systems from their retrieval foundation upward. Notebooks 01-03 expose chunking, vector similarity, and FAISS indexing. Notebooks 04-05 apply those decisions with LangChain, trained Sentence Transformers embeddings, and Qdrant local mode, then evaluate the same retrieval stack.
 
 The notebooks share a small course-handbook corpus. Notebook 04 can call [Groq](https://console.groq.com/docs) or [Mistral](https://docs.mistral.ai/) through LangChain's OpenAI-compatible integration. Without a key, it returns a clearly labeled extractive example, not an LLM answer; the trained embeddings and vector database still run locally.
 
@@ -133,8 +133,8 @@ Then open a notebook and select the Python environment created by `uv sync` as t
 
 ## Professional Tooling Context
 
-The learning path moves from visible mechanics to one concrete integration, without adding a separate framework notebook:
+The learning path moves from visible mechanics to one concrete integration:
 
-- **01-03:** NumPy hash vectors expose the retrieval mechanics; FAISS demonstrates exact and approximate search. These are not trained semantic embeddings.
-- **04-05:** [Sentence Transformers](https://sbert.net/) supplies learned embeddings, [Qdrant](https://qdrant.tech/documentation/) stores vectors and metadata locally, and LangChain connects the components. Local in-memory search does not demonstrate server deployment or ANN scalability.
-- **Later extensions:** LlamaIndex is an alternative RAG framework, not an additional requirement here. Evaluation libraries such as Ragas and TruLens extend retrieval checks with groundedness and answer-quality evaluation.
+- **01-03:** NumPy hash vectors expose the retrieval mechanics and FAISS demonstrates exact and approximate search. These are not trained semantic embeddings.
+- **04-05:** Sentence Transformers supplies learned embeddings, Qdrant stores vectors and metadata locally, and LangChain connects the components. Local in-memory search does not demonstrate server deployment or ANN scalability.
+- **Later extensions:** LlamaIndex is an alternative RAG framework. Evaluation libraries such as Ragas and TruLens extend retrieval checks with groundedness and answer-quality evaluation.
